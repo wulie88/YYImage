@@ -52,7 +52,13 @@
 }
 
 - (void)addImageWithName:(NSString *)name text:(NSString *)text {
-    YYImage *image = [YYImage imageNamed:name];
+    static NSBundle *bundle;
+    if (!bundle) {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Images" withExtension:@"bundle"];
+        bundle = [NSBundle bundleWithURL:url];
+    }
+    
+    YYImage *image = [YYImage imageNamed:name inBundle:bundle];
     [self addImage:image size:CGSizeZero text:text];
 }
 
